@@ -1,17 +1,44 @@
 package com.qihoo.kids.allinonedemo
 
-import android.os.Bundle
-import android.view.Window
-import android.view.WindowManager
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.google.android.material.tabs.TabLayoutMediator
+import com.qihoo.kids.allinonedemo.base.BaseActivity
+import com.qihoo.kids.allinonedemo.base.BaseViewModel
+import com.qihoo.kids.allinonedemo.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+class MainActivity : BaseActivity<BaseViewModel,ActivityMainBinding>() {
 
-        setContentView(R.layout.activity_main)
+    /**
+     * 添加新的fragment需要在FragmentFactory中添加一个新的fragment，还需要在array添加一个新的title
+     */
+    private var typeList:MutableList<Int> = mutableListOf()
+
+    init {
+        typeList.add(FragmentFactory.TYPE_KTX)
+        typeList.add(FragmentFactory.TYPE_DATA_BINDING)
+        typeList.add(FragmentFactory.TYPE_KTX)
+        typeList.add(FragmentFactory.TYPE_KTX)
+        typeList.add(FragmentFactory.TYPE_KTX)
 
     }
+
+    override fun initView() {
+        val titleList = resources.getStringArray(R.array.tab_title)
+        mDataBinding.vpMain.adapter = object :FragmentStateAdapter(this){
+            override fun getItemCount(): Int {
+                return typeList.size
+            }
+
+            override fun createFragment(position: Int): Fragment {
+                return FragmentFactory.getFragment(typeList[position])
+            }
+        }
+        TabLayoutMediator(mDataBinding.tabMain,mDataBinding.vpMain){ tab, position ->
+            tab.text = titleList[position]
+        }.attach()
+    }
+
+    override val layoutId: Int
+        get() = R.layout.activity_main
 }
