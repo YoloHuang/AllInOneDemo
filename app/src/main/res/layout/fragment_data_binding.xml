@@ -1,9 +1,260 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.qihoo.kids.allinonedemo.bindadapter.Converter" />
+
+        <import type="com.qihoo.kids.allinonedemo.bindadapter.NumberConverter" />
+
+        <variable
+            name="viewModel"
+            type="com.qihoo.kids.allinonedemo.viewmodel.TimeViewModel" />
+
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:theme="@style/AppTheme">
+
+        <ToggleButton
+            android:id="@+id/tb_start"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="6dp"
+            android:checked="@={viewModel.timeRunning}"
+            android:focusable="true"
+            android:textOff="@string/start"
+            android:textOn="@string/pause"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/bt_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="6dp"
+            android:onClick="@{() -> viewModel.resetButtonClicked()}"
+            android:text="@string/reset"
+            app:layout_constraintEnd_toStartOf="@id/tb_start"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/numberDecrease"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="6dp"
+            android:onClick="@{() -> viewModel.decreaseNumberButtonClicked()}"
+            android:text="@string/minus_sign"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/editTextNumber"
+            numberOfSets="@={NumberConverter.setArrayToString(context,viewModel.numberSets)}"
+            android:enabled="@{!viewModel.timeRunning}"
+            hideKeyboardOnInputDone="@{true}"
+            loseFocusWhen="@{viewModel.timeRunning}"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="6dp"
+            android:digits="0123456789"
+            android:ems="5"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/numberDecrease"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="set: 8/26" />
+
+        <Button
+            android:id="@+id/numberIncrease"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="6dp"
+            android:onClick="@{() -> viewModel.increaseNumberButtonClicked()}"
+            android:text="@string/plus_sign"
+            app:layout_constraintStart_toEndOf="@id/editTextNumber"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progressBarRest"
+            style="?android:attr/progressBarStyleHorizontal"
+            max="@{viewModel.restTime}"
+            progress="@{viewModel.resetTimeLeft}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progressBarWork"
+            style="?android:attr/progressBarStyleHorizontal"
+            max="@{viewModel.workTime}"
+            progress="@{viewModel.workTimeLeft}"
+            animationBiasState="@{viewModel.timeRunning}"
+            animationBiasStage="@{viewModel.workStages}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            app:layout_constraintBottom_toTopOf="@id/progressBarRest"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tb_start" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/workLeft"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textColor="@color/secondaryDarkColor"
+            tools:text="15:55"
+            android:autoSizeTextType="uniform"
+            animationBackground="@{viewModel.timeRunning}"
+            animationStage="@{viewModel.workStages}"
+            android:text="@{Converter.fromIntToString(viewModel.workTimeLeft)}"
+            app:layout_constraintBottom_toTopOf="@+id/workPlus"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tb_start" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/restLeft"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:maxLines="1"
+            tools:text="15:55"
+            android:textColor="@color/secondaryDarkColor"
+            android:autoSizeTextType="uniform"
+            animationBackground="@{viewModel.timeRunning}"
+            animationStage="@{!viewModel.workStages}"
+            android:text="@{Converter.fromIntToString(viewModel.resetTimeLeft)}"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintBottom_toTopOf="@id/restMinus"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/progressBarWork" />
+
+
+
+        <Button
+            android:id="@+id/workMinus"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_margin="6dp"
+            android:onClick="@{() -> viewModel.decreaseWorkButtonClicked()}"
+            android:text="@string/minus_sign"
+            app:layout_constraintBottom_toTopOf="@id/progressBarWork"
+            app:layout_constraintEnd_toStartOf="@id/editTextWork"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@id/progressBarWork"
+            app:layout_constraintTop_toBottomOf="@id/workLeft" />
+
+        <Button
+            android:id="@+id/workPlus"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_margin="6dp"
+            android:onClick="@{() -> viewModel.increaseWorkButtonClicked()}"
+            android:text="@string/plus_sign"
+            app:layout_constraintBottom_toTopOf="@id/progressBarWork"
+            app:layout_constraintEnd_toEndOf="@id/progressBarWork"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@id/editTextWork"
+            app:layout_constraintTop_toBottomOf="@id/workLeft" />
+
+        <EditText
+            android:id="@+id/editTextWork"
+            onFocusChanged="@{() -> viewModel.workOnFocusChanged(editTextWork.getText())}"
+            hideKeyboardOnInputDone="@{true}"
+            loseFocusWhen="@{viewModel.timeRunning}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:digits=",.:0123456789"
+            android:imeOptions="actionDone"
+            android:inputType="time"
+            android:maxLines="1"
+            android:ems="5"
+            tools:text="15:15"
+            android:text="@{Converter.fromIntToString(viewModel.workTime)}"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@id/progressBarWork"
+            app:layout_constraintEnd_toStartOf="@id/workPlus"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@id/workMinus"
+            app:layout_constraintTop_toBottomOf="@id/workLeft" />
+
+        <Button
+            android:id="@+id/restMinus"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_margin="6dp"
+            android:onClick="@{() -> viewModel.decreaseRestButtonClicked()}"
+            android:text="@string/minus_sign"
+            app:layout_constraintBottom_toTopOf="@id/progressBarRest"
+            app:layout_constraintEnd_toStartOf="@id/editTextRest"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@id/progressBarRest"
+            app:layout_constraintTop_toBottomOf="@id/restLeft" />
+
+        <Button
+            android:id="@+id/restPlus"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_margin="6dp"
+            android:onClick="@{() -> viewModel.increaseRestButtonClicked()}"
+            android:text="@string/plus_sign"
+            app:layout_constraintBottom_toTopOf="@id/progressBarRest"
+            app:layout_constraintEnd_toEndOf="@id/progressBarRest"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@id/editTextRest"
+            app:layout_constraintTop_toBottomOf="@id/restLeft" />
+
+        <EditText
+            android:id="@+id/editTextRest"
+            onFocusChanged="@{() -> viewModel.restOnFocusChanged(editTextRest.getText())}"
+            hideKeyboardOnInputDone="@{true}"
+            loseFocusWhen="@{viewModel.timeRunning}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:digits=",.:0123456789"
+            android:imeOptions="actionDone"
+            android:inputType="time"
+            android:maxLines="1"
+            android:ems="5"
+            tools:text="15:15"
+            android:text="@{Converter.fromIntToString(viewModel.restTime)}"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@id/progressBarRest"
+            app:layout_constraintEnd_toStartOf="@id/restPlus"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@id/restMinus"
+            app:layout_constraintTop_toBottomOf="@id/restLeft" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
