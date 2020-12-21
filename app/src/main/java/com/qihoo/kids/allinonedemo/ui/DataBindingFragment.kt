@@ -1,11 +1,8 @@
 package com.qihoo.kids.allinonedemo.ui
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.edit
 import androidx.databinding.Observable
 import androidx.databinding.ObservableInt
@@ -14,7 +11,6 @@ import com.qihoo.kids.allinonedemo.R
 import com.qihoo.kids.allinonedemo.base.BaseFragment
 import com.qihoo.kids.allinonedemo.databinding.FragmentDataBindingBinding
 import com.qihoo.kids.allinonedemo.viewmodel.TimeViewModel
-import java.util.*
 
 /**
  * @author yolo.huang

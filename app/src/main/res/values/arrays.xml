@@ -4,7 +4,7 @@
     <string-array name="tab_title">
         <item name="title_ktx">KTX</item>
         <item name="title_ktx">DataBinding</item>
-        <item name="title_ktx">KTX</item>
+        <item name="title_ktx">协程</item>
         <item name="title_ktx">KTX</item>
         <item name="title_ktx">KTX</item>
     </string-array>

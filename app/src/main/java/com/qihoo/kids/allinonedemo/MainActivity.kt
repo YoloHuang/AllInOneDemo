@@ -17,7 +17,7 @@ class MainActivity : BaseActivity<BaseViewModel,ActivityMainBinding>() {
     init {
         typeList.add(FragmentFactory.TYPE_KTX)
         typeList.add(FragmentFactory.TYPE_DATA_BINDING)
-        typeList.add(FragmentFactory.TYPE_KTX)
+        typeList.add(FragmentFactory.TYPE_COROUTINES)
         typeList.add(FragmentFactory.TYPE_KTX)
         typeList.add(FragmentFactory.TYPE_KTX)
 
