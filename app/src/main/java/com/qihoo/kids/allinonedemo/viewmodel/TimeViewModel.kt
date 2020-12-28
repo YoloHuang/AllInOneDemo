@@ -72,6 +72,7 @@ class TimeViewModel(application:Application):BaseViewModel(application) {
         when(state){
             TimeState.STOPPED -> stopToStart()
             TimeState.PAUSED -> pauseToStart()
+            else -> return
         }
 
         DefaultTimer.startTimer(object :TimerTask(){

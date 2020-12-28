@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.qihoo.kids.allinonedemo.R
 import java.lang.NumberFormatException
 
@@ -78,6 +79,10 @@ object BindingAdapter {
 
         view.setOnEditorActionListener(listener)
     }
-
+    @BindingAdapter("setAdapter")
+    @JvmStatic
+    fun setAdapter(view: RecyclerView, adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>){
+        view.adapter = adapter
+    }
 
 }
