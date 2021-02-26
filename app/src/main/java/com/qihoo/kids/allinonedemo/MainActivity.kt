@@ -19,7 +19,7 @@ class MainActivity : BaseActivity<BaseViewModel,ActivityMainBinding>() {
         typeList.add(FragmentFactory.TYPE_DATA_BINDING)
         typeList.add(FragmentFactory.TYPE_COROUTINES)
         typeList.add(FragmentFactory.TYPE_GREEN_DAO)
-        typeList.add(FragmentFactory.TYPE_KTX)
+        typeList.add(FragmentFactory.TYPE_SERVICE)
 
     }
 

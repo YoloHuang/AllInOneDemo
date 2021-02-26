@@ -1,10 +1,7 @@
 package com.qihoo.kids.allinonedemo
 
 import androidx.fragment.app.Fragment
-import com.qihoo.kids.allinonedemo.ui.CoroutinesFragment
-import com.qihoo.kids.allinonedemo.ui.DataBindingFragment
-import com.qihoo.kids.allinonedemo.ui.GreenDaoFragment
-import com.qihoo.kids.allinonedemo.ui.KtxFragment
+import com.qihoo.kids.allinonedemo.ui.*
 
 /**
  * @author yolo.huang
@@ -16,6 +13,7 @@ object FragmentFactory {
     const val TYPE_DATA_BINDING = 102
     const val TYPE_COROUTINES = 103
     const val TYPE_GREEN_DAO = 104
+    const val TYPE_SERVICE = 105
 
 
     fun getFragment(type:Int): Fragment {
@@ -24,6 +22,7 @@ object FragmentFactory {
             TYPE_DATA_BINDING -> DataBindingFragment()
             TYPE_COROUTINES -> CoroutinesFragment()
             TYPE_GREEN_DAO -> GreenDaoFragment()
+            TYPE_SERVICE -> ServiceFragment()
             else -> KtxFragment()
         }
 

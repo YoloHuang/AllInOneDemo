@@ -45,7 +45,7 @@ class GreenDaoViewModel(application: Application) :BaseViewModel(application) {
         }
     }
 
-    fun queryAllList(){
+    private fun queryAllList(){
         StudentDaoManager.queryAllStudent {
             if(it!=null){
                 studentList.value = it
