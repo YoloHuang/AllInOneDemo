@@ -14,6 +14,7 @@ object FragmentFactory {
     const val TYPE_COROUTINES = 103
     const val TYPE_GREEN_DAO = 104
     const val TYPE_SERVICE = 105
+    const val TYPE_TIMEZONE = 106
 
 
     fun getFragment(type:Int): Fragment {
@@ -23,6 +24,7 @@ object FragmentFactory {
             TYPE_COROUTINES -> CoroutinesFragment()
             TYPE_GREEN_DAO -> GreenDaoFragment()
             TYPE_SERVICE -> ServiceFragment()
+            TYPE_TIMEZONE -> TimezoneFragment()
             else -> KtxFragment()
         }
 

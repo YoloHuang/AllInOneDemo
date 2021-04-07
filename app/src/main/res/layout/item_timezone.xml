@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="timezone"
+            type="com.qihoo.kids.allinonedemo.bean.TimezoneBean" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/student_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text='@{"ID:"+timezone.id}'
+            android:textSize="20sp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/student_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text='@{"name:"+timezone.name}'
+            android:textSize="20sp"
+            android:layout_weight="1"
+            />
+
+        <TextView
+            android:id="@+id/student_age"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text='@{"gmt:"+timezone.GMTtime}'
+            android:textSize="20sp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+</layout>
